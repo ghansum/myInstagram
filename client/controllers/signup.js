@@ -1,3 +1,4 @@
+/*global angular*/
 angular.module('Instagram')
   .controller('SignupCtrl', function($scope, $auth) {
 
