@@ -13,5 +13,4 @@ angular.module('Instagram')
           return $http.post('http://instaviews.herokuapp.com/api/like', { mediaId: id });
         }
       }
-
     });
