@@ -253,7 +253,6 @@
 
           $window.localStorage[tokenName] = token;
 
-          if (config.loginRedirect && !isLinking) {
             $location.path(config.loginRedirect);
           }
         };

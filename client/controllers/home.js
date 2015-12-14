@@ -14,6 +14,7 @@ angular.module('Instagram')
     $scope.linkInstagram = function() {
       $auth.link('instagram')
         .then(function(response) {
+          console.log("HOME : Execution de instagramLogin");
           $window.localStorage.currentUser = JSON.stringify(response.data.user);
           $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
           API.getFeed().success(function(data) {

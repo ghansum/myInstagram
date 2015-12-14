@@ -4,7 +4,10 @@ angular.module('Instagram')
 
     $scope.instagramLogin = function() {
       $auth.authenticate('instagram')
-        .then(function(response) {
+        .then(
+          
+          function(response) {
+            console.log("LOGIN : Execution de instagramLogin");
           $window.localStorage.currentUser = JSON.stringify(response.data.user);
           $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
         })

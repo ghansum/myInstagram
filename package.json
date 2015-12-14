@@ -16,6 +16,8 @@
     "request": "^2.44.0"
   },
   "devDependencies": {
+    "generate-function": "^2.0.0",
+    "generate-object-property": "^1.2.0",
     "gulp": "^3.8.10",
     "gulp-angular-templatecache": "^1.4.2",
     "gulp-complexity": "^0.3.0",
@@ -25,6 +27,8 @@
     "gulp-header": "^1.2.2",
     "gulp-ng-annotate": "^0.4.1",
     "gulp-recess": "^1.1.1",
-    "gulp-uglify": "^1.0.2"
+    "gulp-uglify": "^1.0.2",
+    "jsonpointer": "^3.0.0",
+    "xtend": "^4.0.1"
   }
 }

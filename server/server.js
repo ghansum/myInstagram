@@ -4,13 +4,13 @@ var cors = require('cors');
 var express = require('express');
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var path = require('path');
 var request = require('request');
 var compress = require('compression');
 
 var config = require('./config');
-
+/*
 var User = mongoose.model('User', new mongoose.Schema({
   instagramId: { type: String, index: true },
   email: { type: String, unique: true, lowercase: true },
@@ -20,17 +20,17 @@ var User = mongoose.model('User', new mongoose.Schema({
   picture: String,
   accessToken: String
 }));
-
+*/
 //mongoose.connect(config.db);
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.port || 3000);
 app.use(compress());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 2628000000 }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
 
 /*
  |--------------------------------------------------------------------------
@@ -136,6 +136,7 @@ app.post('/auth/signup', function(req, res) {
  |--------------------------------------------------------------------------
  */
 app.post('/auth/instagram', function(req, res) {
+  console.log("Server.js : Appel de /auth/instagram");
   var accessTokenUrl = 'https://api.instagram.com/oauth/access_token';
 
   var params = {
