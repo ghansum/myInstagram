@@ -1,3 +1,4 @@
+/*global angular*/
 angular.module('Instagram', ['ngRoute', 'ngMessages', 'satellizer'])
   .config(function($routeProvider, $authProvider) {
     $routeProvider

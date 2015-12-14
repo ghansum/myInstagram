@@ -1,3 +1,4 @@
+/*global angular sweetAlert*/
 angular.module('Instagram')
   .controller('DetailCtrl', function($scope, $rootScope, $location, API) {
 

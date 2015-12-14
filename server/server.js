@@ -21,7 +21,7 @@ var User = mongoose.model('User', new mongoose.Schema({
   accessToken: String
 }));
 
-mongoose.connect(config.db);
+//mongoose.connect(config.db);
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 2628000000 }));
 
 /*
  |--------------------------------------------------------------------------
- | Login Required Middleware
+ | Login  : vérification
  |--------------------------------------------------------------------------
  */
 function isAuthenticated(req, res, next) {
@@ -63,7 +63,7 @@ function isAuthenticated(req, res, next) {
 
 /*
  |--------------------------------------------------------------------------
- | Generate JSON Web Token
+ | Genère un Token (JSON Web Token)
  |--------------------------------------------------------------------------
  */
 function createToken(user) {
@@ -78,7 +78,7 @@ function createToken(user) {
 
 /*
  |--------------------------------------------------------------------------
- | Sign in with Email
+ | Connexion avec Email
  |--------------------------------------------------------------------------
  */
 app.post('/auth/login', function(req, res) {
@@ -103,7 +103,7 @@ app.post('/auth/login', function(req, res) {
 
 /*
  |--------------------------------------------------------------------------
- | Create Email and Password Account
+ | Création d'un compte avec Email et un password
  |--------------------------------------------------------------------------
  */
 app.post('/auth/signup', function(req, res) {
@@ -132,7 +132,7 @@ app.post('/auth/signup', function(req, res) {
 
 /*
  |--------------------------------------------------------------------------
- | Sign in with Instagram
+ | Connexion avec Instagram
  |--------------------------------------------------------------------------
  */
 app.post('/auth/instagram', function(req, res) {
@@ -146,10 +146,10 @@ app.post('/auth/instagram', function(req, res) {
     grant_type: 'authorization_code'
   };
 
-  // Step 1. Exchange authorization code for access token.
+  //Echange du code d'autorisation pour access token.
   request.post({ url: accessTokenUrl, form: params, json: true }, function(error, response, body) {
 
-    // Step 2a. Link user accounts.
+    //Liaison avec le compte de l'utilisateur 
     if (req.headers.authorization) {
 
       User.findOne({ instagramId: body.user.id }, function(err, existingUser) {
@@ -162,7 +162,7 @@ app.post('/auth/instagram', function(req, res) {
             return res.status(400).send({ message: 'User not found.' });
           }
 
-          // Merge two accounts. Instagram account takes precedence. Email account is deleted.
+          // On vérifie le compte 
           if (existingUser) {
 
             existingUser.email = localUser.email;
@@ -176,7 +176,7 @@ app.post('/auth/instagram', function(req, res) {
             });
 
           } else {
-            // Link current email account with the Instagram profile information.
+            // On associe l'email actuel aux informations provenant du profil Instagram (de l'utilisateur).
             localUser.instagramId = body.user.id;
             localUser.username = body.user.username;
             localUser.fullName = body.user.full_name;
@@ -192,7 +192,7 @@ app.post('/auth/instagram', function(req, res) {
         });
       });
     } else {
-      // Step 2b. Create a new user account or return an existing one.
+      // Créer un un nouveau utilisateur ou retourne l'utilisateur s'il existe
       User.findOne({ instagramId: body.user.id }, function(err, existingUser) {
         if (existingUser) {
           var token = createToken(existingUser);
